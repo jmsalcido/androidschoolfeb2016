@@ -1,9 +1,11 @@
 class TodosApiController < ApplicationController
+  include Rails::Pagination
 
-  skip_before_filter :verify_authenticity_token, :only => :create
+  skip_before_action :verify_authenticity_token, :only => :create
 
   def index
-    render json: Todo.all
+    WillPaginate.per_page = 5
+    render json: paginate(Todo.page(params[:page]))
   end
 
   def create
