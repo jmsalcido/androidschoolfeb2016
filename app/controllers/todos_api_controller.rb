@@ -13,4 +13,8 @@ class TodosApiController < ApplicationController
     render json: true
   end
 
+  def show
+    render json: Todo.find(params[:id])
+  end
+
 end
